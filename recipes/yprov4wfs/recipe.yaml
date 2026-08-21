@@ -14,14 +14,7 @@ source:
 build:
   number: 0
   noarch: python
-  script:
-    env:
-      # setup.py reads README.md without an explicit encoding, so Python falls
-      # back to the locale encoding. That is cp1252 on Windows, which cannot
-      # decode the UTF-8 README. Reported upstream:
-      # https://github.com/HPCI-Lab/yProv4WFs
-      PYTHONUTF8: "1"
-    content: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
@@ -42,15 +35,9 @@ tests:
 
 about:
   summary: A module for tracking the provenance of a workflow using a Workflow Management System.
-  # NOTE TO ANYONE UPDATING THIS RECIPE: the license changed after 0.0.8.
-  # 0.0.8 is GPL-3.0 consistently (LICENSE, setup.py and PKG-INFO all agree).
-  # Upstream relicensed to Apache-2.0 on 2025-11-07, after 0.0.8 was released,
-  # so any version newer than 0.0.8 needs `license` updated here.
-  # Be careful: that relicense only touched the LICENSE file. As of tag v0.1.2
-  # the LICENSE is Apache-2.0 but pyproject.toml and setup.py still declare
-  # GPLv3, so the two disagree. Check both before changing this field.
-  # (Newer versions are also GitHub-only -- PyPI has had nothing past 0.0.8
-  # since 2025-04-30 -- and declare version 0.0.9 even at tag v0.1.2.)
+  # NOTE FOR UPDATERS: upstream relicensed to Apache-2.0 on 2025-11-07, after
+  # 0.0.8. Any version >0.0.8 needs this field updated - but check both LICENSE
+  # and pyproject.toml/setup.py: as of v0.1.2 they still disagree (Apache vs GPLv3).
   license: GPL-3.0-only
   license_file: LICENSE
   homepage: https://github.com/HPCI-Lab/yProv4WFs
